@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Phòng Khám OOSD</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body class="dashboard-shell">
+<div class="dashboard-layout" id="dashboardLayout">
+    <aside class="dashboard-sidebar">
+        <div class="sidebar-brand"><i class="fas fa-clinic-medical"></i><span>Admin OOSD</span></div>
+        <button class="sidebar-toggle" id="sidebarToggle" type="button"><i class="fas fa-bars"></i></button>
+        <nav class="sidebar-menu">
+            <button class="sidebar-link active" data-section="overviewSection"><i class="fas fa-chart-pie"></i><span>Tổng quan</span></button>
+            <button class="sidebar-link" data-section="doctorSection"><i class="fas fa-user-doctor"></i><span>Quản lý bác sĩ</span></button>
+            <button class="sidebar-link" data-section="patientSection"><i class="fas fa-hospital-user"></i><span>Quản lý bệnh nhân</span></button>
+            <button class="sidebar-link" data-section="appointmentSection"><i class="fas fa-calendar-check"></i><span>Quản lý lịch khám</span></button>
+            <button class="sidebar-link" data-section="departmentSection"><i class="fas fa-door-open"></i><span>Quản lý khoa - phòng</span></button>
+            <button class="sidebar-link" data-section="prescriptionSection"><i class="fas fa-prescription-bottle-medical"></i><span>Quản lý đơn thuốc</span></button>
+        </nav>
+        <div class="sidebar-footer">
+            <a href="/" class="sidebar-link"><i class="fas fa-house"></i><span>Trang chủ</span></a>
+            <button class="sidebar-link" id="logoutButton"><i class="fas fa-right-from-bracket"></i><span>Đăng xuất</span></button>
+        </div>
+    </aside>
+
+    <main class="dashboard-main">
+        <header class="dashboard-topbar">
+            <div>
+                <span class="section-kicker">Admin</span>
+                <h1 class="h3 mb-0">Bảng điều khiển quản trị</h1>
+            </div>
+            <button class="btn btn-outline-primary btn-sm" id="refreshDashboard"><i class="fas fa-rotate me-1"></i>Tải lại</button>
+        </header>
+
+        <div id="adminMessage" class="alert d-none"></div>
+
+        <section class="dashboard-section active" id="overviewSection">
+            <div class="row g-3 mb-4" id="summaryCards"></div>
+            <div class="row g-4">
+                <div class="col-lg-5">
+                    <div class="dashboard-card h-100">
+                        <h2 class="h5 mb-3">Tỉ lệ lịch khám</h2>
+                        <div class="donut-chart mx-auto" id="appointmentDonut"></div>
+                        <div class="small text-muted mt-3" id="donutLegend"></div>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="dashboard-card h-100">
+                        <h2 class="h5 mb-3">Lịch hẹn gần đây</h2>
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle mb-0">
+                                <thead class="table-light">
+                                <tr><th>ID</th><th>Bệnh nhân</th><th>Bác sĩ</th><th>Ngày khám</th><th>Trạng thái</th></tr>
+                                </thead>
+                                <tbody id="recentAppointmentTable"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="dashboard-section" id="doctorSection">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <div class="dashboard-card">
+                        <h2 class="h5 mb-3">Thêm / sửa bác sĩ</h2>
+                        <form id="doctorForm">
+                            <input type="hidden" id="doctorId">
+                            <div class="mb-3"><label for="doctorName" class="form-label">Tên bác sĩ</label><input type="text" id="doctorName" class="form-control" required></div>
+                            <div class="mb-3"><label for="doctorSpecialty" class="form-label">Chuyên khoa</label><input type="text" id="doctorSpecialty" class="form-control" required></div>
+                            <div class="mb-3"><label for="doctorAccountEmail" class="form-label">Email tài khoản</label><input type="email" id="doctorAccountEmail" class="form-control" placeholder="doctor@example.com"></div>
+                            <div class="mb-3"><label for="doctorAccountPassword" class="form-label">Mật khẩu tài khoản</label><input type="password" id="doctorAccountPassword" class="form-control" placeholder="Để trống nếu không đổi"></div>
+                            <div class="d-flex gap-2"><button class="btn btn-primary" type="submit">Lưu</button><button class="btn btn-outline-secondary" type="button" id="resetDoctorForm">Làm mới</button></div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="dashboard-card">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h2 class="h5 mb-0">Danh sách bác sĩ</h2>
+                            <button class="btn btn-primary btn-sm" id="newDoctorButton"><i class="fas fa-plus me-1"></i>Thêm</button>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle mb-0">
+                                <thead class="table-light"><tr><th>ID</th><th>Tên</th><th>Chuyên khoa</th><th>Tài khoản</th><th>Thao tác</th></tr></thead>
+                                <tbody id="doctorTable"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="dashboard-section" id="patientSection">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <div class="dashboard-card">
+                        <h2 class="h5 mb-3">Thêm / sửa bệnh nhân</h2>
+                        <form id="patientForm">
+                            <input type="hidden" id="patientId">
+                            <div class="mb-3"><label for="patientName" class="form-label">Họ tên</label><input type="text" id="patientName" class="form-control" required></div>
+                            <div class="mb-3"><label for="patientEmail" class="form-label">Email</label><input type="email" id="patientEmail" class="form-control" required></div>
+                            <div class="mb-3"><label for="patientPassword" class="form-label">Mật khẩu</label><input type="password" id="patientPassword" class="form-control" placeholder="Để trống nếu không đổi"></div>
+                            <div class="mb-3"><label for="patientDateOfBirth" class="form-label">Ngày sinh</label><input type="date" id="patientDateOfBirth" class="form-control"></div>
+                            <div class="mb-3">
+                                <label for="patientGender" class="form-label">Giới tính</label>
+                                <select id="patientGender" class="form-select"><option value="">Chọn giới tính</option><option value="Nam">Nam</option><option value="Nữ">Nữ</option><option value="Khác">Khác</option></select>
+                            </div>
+                            <div class="mb-3"><label for="patientPhone" class="form-label">Số điện thoại</label><input type="tel" id="patientPhone" class="form-control"></div>
+                            <div class="d-flex gap-2"><button class="btn btn-primary" type="submit">Lưu</button><button class="btn btn-outline-secondary" type="button" id="resetPatientForm">Làm mới</button></div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="dashboard-card">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h2 class="h5 mb-0">Danh sách bệnh nhân</h2>
+                            <button class="btn btn-primary btn-sm" id="newPatientButton"><i class="fas fa-plus me-1"></i>Thêm</button>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle mb-0">
+                                <thead class="table-light"><tr><th>ID</th><th>Họ tên</th><th>Email</th><th>SĐT</th><th>Giới tính</th><th>Thao tác</th></tr></thead>
+                                <tbody id="patientTable"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="dashboard-section" id="appointmentSection">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <div class="dashboard-card">
+                        <h2 class="h5 mb-3">Thêm / sửa lịch khám</h2>
+                        <form id="appointmentForm">
+                            <input type="hidden" id="appointmentId">
+                            <div class="mb-3"><label for="appointmentPatient" class="form-label">Bệnh nhân</label><select id="appointmentPatient" class="form-select" required></select></div>
+                            <div class="mb-3"><label for="appointmentDoctor" class="form-label">Bác sĩ</label><select id="appointmentDoctor" class="form-select" required></select></div>
+                            <div class="mb-3"><label for="appointmentExamDate" class="form-label">Ngày khám</label><input type="date" id="appointmentExamDate" class="form-control" required></div>
+                            <div class="mb-3">
+                                <label for="appointmentStatus" class="form-label">Trạng thái</label>
+                                <select id="appointmentStatus" class="form-select" required>
+                                    <option value="PENDING">Chưa xác nhận</option>
+                                    <option value="CONFIRMED">Đã xác nhận</option>
+                                    <option value="COMPLETED">Đã khám</option>
+                                    <option value="CANCELED">Đã hủy</option>
+                                </select>
+                            </div>
+                            <div class="mb-3"><label for="appointmentSymptoms" class="form-label">Triệu chứng</label><textarea id="appointmentSymptoms" class="form-control" rows="3"></textarea></div>
+                            <div class="d-flex gap-2"><button class="btn btn-primary" type="submit">Lưu</button><button class="btn btn-outline-secondary" type="button" id="resetAppointmentForm">Làm mới</button></div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="dashboard-card">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h2 class="h5 mb-0">Danh sách lịch hẹn</h2>
+                            <button class="btn btn-primary btn-sm" id="newAppointmentButton"><i class="fas fa-plus me-1"></i>Thêm</button>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle mb-0">
+                                <thead class="table-light"><tr><th>ID</th><th>Bệnh nhân</th><th>Bác sĩ</th><th>Ngày khám</th><th>Triệu chứng</th><th>Trạng thái</th><th>Thao tác</th></tr></thead>
+                                <tbody id="appointmentTable"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="dashboard-section" id="departmentSection"><div class="dashboard-card placeholder-panel"><i class="fas fa-door-open"></i><h2 class="h5">Quản lý khoa - phòng</h2><p class="text-muted mb-0">Menu đã sẵn sàng. Chức năng backend sẽ được bổ sung ở bước sau.</p></div></section>
+        <section class="dashboard-section" id="prescriptionSection"><div class="dashboard-card placeholder-panel"><i class="fas fa-prescription-bottle-medical"></i><h2 class="h5">Quản lý đơn thuốc</h2><p class="text-muted mb-0">Menu đã sẵn sàng. Chức năng backend sẽ được bổ sung ở bước sau.</p></div></section>
+    </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/js/admin.js"></script>
+</body>
+</html>

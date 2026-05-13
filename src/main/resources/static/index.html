@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phòng Khám OOSD - Đặt Lịch Khám</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg site-navbar sticky-top">
+    <div class="container">
+        <a class="navbar-brand site-brand" href="#home">
+            <span class="brand-icon"><i class="fas fa-clinic-medical"></i></span>
+            <span>
+                <strong>Phòng Khám OOSD</strong>
+                <small>Healthcare Appointment</small>
+            </span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mainNavbar">
+            <ul class="navbar-nav site-menu mx-auto">
+                <li class="nav-item"><a class="nav-link active" href="#home"><i class="fas fa-house"></i>Trang chủ</a></li>
+                <li class="nav-item"><a class="nav-link" href="#online-consult"><i class="fas fa-user-doctor"></i>Bác sĩ</a></li>
+                <li class="nav-item"><a class="nav-link" href="#featured-articles"><i class="fas fa-newspaper"></i>Tin tức</a></li>
+                <li class="nav-item"><a class="nav-link" href="#services-section"><i class="fas fa-hand-holding-medical"></i>Dịch vụ</a></li>
+                <li class="nav-item"><a class="nav-link" href="#partners-section"><i class="fas fa-hospital"></i>Đối tác</a></li>
+            </ul>
+            <div class="d-flex align-items-center gap-2" id="userSection">
+                <a href="tel:19000101" class="hotline-pill d-none d-xl-inline-flex">
+                    <i class="fas fa-phone-alt"></i>
+                    <span>1900 0101</span>
+                </a>
+                <a href="#booking-section" class="btn btn-primary nav-booking-btn">Đặt lịch</a>
+                <button class="btn btn-outline-primary nav-login-btn" data-bs-toggle="modal" data-bs-target="#loginModal">Đăng nhập</button>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<section class="hero-banner" id="home">
+    <div class="container">
+        <div class="row align-items-center g-4">
+            <div class="col-lg-6">
+                <span class="section-kicker">Chăm sóc sức khỏe toàn diện</span>
+                <h1>Đặt lịch khám nhanh với đội ngũ bác sĩ chuyên môn cao</h1>
+                <p>Phòng khám OOSD kết nối bệnh nhân với bác sĩ, giúp đặt lịch, theo dõi trạng thái và quản lý lịch khám ngay trên web.</p>
+                <div class="d-flex flex-wrap gap-2 mb-4">
+                    <a href="#booking-section" class="btn btn-primary btn-lg">Đặt lịch ngay</a>
+                    <a href="#services-section" class="btn btn-outline-primary btn-lg">Xem dịch vụ</a>
+                </div>
+                <div class="hero-options">
+                    <span><i class="fas fa-check-circle"></i> Bác sĩ chuyên môn cao</span>
+                    <span><i class="fas fa-check-circle"></i> Trang thiết bị hiện đại</span>
+                    <span><i class="fas fa-check-circle"></i> Hỗ trợ 24/7</span>
+                    <span><i class="fas fa-check-circle"></i> Chi phí hợp lý</span>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="hero-image">
+                    <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=1000&q=85" alt="Bác sĩ tư vấn cho bệnh nhân">
+                    <div class="hero-badge top">5+<small>Năm kinh nghiệm</small></div>
+                    <div class="hero-badge bottom">10k+<small>Bệnh nhân hài lòng</small></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="online-consult" class="py-5 bg-light">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-end gap-3 mb-4">
+            <div>
+                <span class="section-kicker">Bác sĩ</span>
+                <h2 class="mb-0">Đội ngũ bác sĩ chuyên nghiệp</h2>
+            </div>
+            <a href="#booking-section" class="btn btn-primary">Đặt lịch khám</a>
+        </div>
+        <div class="row" id="doctorCards"></div>
+    </div>
+</section>
+
+<section class="main-content py-5">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-lg-8">
+                <span class="section-kicker">Tin tức</span>
+                <h2 class="mb-4" id="featured-articles">Tin tức nổi bật</h2>
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <article class="card h-100">
+                            <img src="/anh/cam-nang-suc-khoe.avif" class="card-img-top" alt="Cẩm nang sức khỏe">
+                            <div class="card-body">
+                                <h5 class="card-title">Cẩm nang sức khỏe</h5>
+                                <p class="card-text">Những lưu ý quan trọng giúp gia đình chủ động phòng tránh rủi ro sức khỏe thường gặp.</p>
+                                <a href="https://www.vinmec.com/vie/bai-viet/cam-nang-cham-soc-suc-khoe-vi" class="btn btn-outline-primary" target="_blank">Xem thêm</a>
+                            </div>
+                        </article>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <article class="card h-100">
+                            <img src="/anh/dinh-duong.avif" class="card-img-top" alt="Dinh dưỡng">
+                            <div class="card-body">
+                                <h5 class="card-title">Dinh dưỡng</h5>
+                                <p class="card-text">Cân bằng bữa ăn, kiểm soát năng lượng và giữ thói quen vận động đều đặn mỗi ngày.</p>
+                                <a href="https://www.vinmec.com/vie/bai-viet/kham-pha-co-ban-va-day-du-ve-cac-chat-dinh-duong-vi" class="btn btn-outline-primary" target="_blank">Xem thêm</a>
+                            </div>
+                        </article>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <article class="card h-100">
+                            <img src="/anh/tu-van-bac-si.avif" class="card-img-top" alt="Tư vấn với bác sĩ">
+                            <div class="card-body">
+                                <h5 class="card-title">Chat với bác sĩ</h5>
+                                <p class="card-text">Đặt câu hỏi và nhận hướng dẫn ban đầu trước khi đến phòng khám.</p>
+                                <a href="#chatbot" class="btn btn-outline-primary">Hỏi ngay</a>
+                            </div>
+                        </article>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <article class="card h-100">
+                            <img src="/anh/lam-dep.avif" class="card-img-top" alt="Làm đẹp">
+                            <div class="card-body">
+                                <h5 class="card-title">Làm đẹp</h5>
+                                <p class="card-text">Bí quyết chăm sóc da và theo dõi dấu hiệu bất thường cần gặp bác sĩ da liễu.</p>
+                                <a href="https://nhathuoclongchau.com.vn/bai-viet/phuong-phap-cham-soc-da-theo-tung-do-tuoi-co-gi-dac-biet-72312.html" class="btn btn-outline-primary" target="_blank">Xem thêm</a>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </div>
+
+            <aside class="col-lg-4">
+                <div class="sidebar-panel mb-4">
+                    <h2 class="h4 mb-3">Tìm cơ sở y tế</h2>
+                    <form id="facilityForm">
+                        <label for="province" class="form-label">Tỉnh/Thành phố</label>
+                        <select class="form-select mb-3" id="province">
+                            <option value="">Chọn tỉnh/thành phố</option>
+                            <option value="hanoi">Hà Nội</option>
+                            <option value="hcm">TP. Hồ Chí Minh</option>
+                            <option value="danang">Đà Nẵng</option>
+                            <option value="ninhthuan">Ninh Thuận</option>
+                            <option value="binhthuan">Bình Thuận</option>
+                        </select>
+                        <label for="district" class="form-label">Quận/Huyện</label>
+                        <select class="form-select mb-3" id="district">
+                            <option value="">Chọn quận/huyện</option>
+                        </select>
+                        <button type="submit" class="btn btn-primary w-100">Xem kết quả</button>
+                    </form>
+                    <div id="facilityResult" class="small text-muted mt-3"></div>
+                </div>
+
+                <div class="sidebar-panel">
+                    <h2 class="h4 mb-3">Tiện ích sức khỏe</h2>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><a href="#booking-section">Khám bệnh online</a></li>
+                        <li class="list-group-item"><a href="#chatbot">Hỏi đáp dịch vụ y</a></li>
+                        <li class="list-group-item"><a href="tel:19000101">Tư vấn qua Hotline</a></li>
+                        <li class="list-group-item"><a href="#online-consult">Tìm nhanh bác sĩ</a></li>
+                    </ul>
+                </div>
+            </aside>
+        </div>
+    </div>
+</section>
+
+<section class="partners py-5" id="partners-section">
+    <div class="container">
+        <div class="text-center mb-4">
+            <span class="section-kicker">Đối tác</span>
+            <h2 class="mb-2">Đối tác y tế uy tín</h2>
+            <p class="text-muted mb-0">Mạng lưới bệnh viện và cơ sở y tế đồng hành cùng Phòng Khám OOSD.</p>
+        </div>
+        <div class="partner-slider">
+            <div class="partner-logos">
+                <span class="partner-logo-card"><img src="anh/cho ray.webp" alt="Bệnh viện Chợ Rẫy"><strong>Chợ Rẫy</strong></span>
+                <span class="partner-logo-card"><img src="anh/Tudu.jpg" alt="Bệnh viện Từ Dũ"><strong>Từ Dũ</strong></span>
+                <span class="partner-logo-card"><img src="anh/haiduong.png" alt="Bệnh viện Hải Dương"><strong>ĐH Y Dược</strong></span>
+                <span class="partner-logo-card"><img src="anh/cần thơ.webp" alt="Bệnh viện Cần Thơ"><strong>Nhi Đồng</strong></span>
+                <span class="partner-logo-card"><img src="anh/Khánh hòa.png" alt="Bệnh viện Khánh Hòa"><strong>Khánh Hòa</strong></span>
+                <span class="partner-logo-card"><img src="anh/cho ray.webp" alt="Bệnh viện Chợ Rẫy"><strong>Chợ Rẫy</strong></span>
+                <span class="partner-logo-card"><img src="anh/Tudu.jpg" alt="Bệnh viện Từ Dũ"><strong>Từ Dũ</strong></span>
+                <span class="partner-logo-card"><img src="anh/haiduong.png" alt="Bệnh viện Hải Dương"><strong>Hải Dương</strong></span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="features py-5" id="services-section">
+    <div class="container">
+        <span class="section-kicker d-block text-center">Dịch vụ</span>
+        <h2 class="text-center mb-4">Dịch vụ của chúng tôi</h2>
+        <div class="row g-4">
+            <div class="col-md-4 text-center">
+                <div class="service-item">
+                    <i class="fas fa-comment-medical fa-3x mb-3 text-primary"></i>
+                    <h5>Tư vấn trực tuyến</h5>
+                    <p>Trao đổi với bác sĩ qua video hoặc chat, mọi lúc, mọi nơi.</p>
+                </div>
+            </div>
+            <div class="col-md-4 text-center">
+                <div class="service-item">
+                    <i class="fas fa-calendar-check fa-3x mb-3 text-primary"></i>
+                    <h5>Đặt lịch khám</h5>
+                    <p>Chọn bác sĩ và gửi lịch khám chỉ với vài thao tác.</p>
+                </div>
+            </div>
+            <div class="col-md-4 text-center">
+                <div class="service-item">
+                    <i class="fas fa-book-medical fa-3x mb-3 text-primary"></i>
+                    <h5>Kiến thức y tế</h5>
+                    <p>Truy cập bài viết sức khỏe đáng tin cậy cho gia đình.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="testimonials py-5 bg-light" id="testimonials-section">
+    <div class="container">
+        <span class="section-kicker d-block text-center">Đánh giá</span>
+        <h2 class="text-center mb-5">Cảm nhận của khách hàng</h2>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body text-center p-4">
+                        <i class="fas fa-user-circle fa-4x text-primary mb-3"></i>
+                        <h5>Nguyễn Thị A</h5>
+                        <p class="rating">★★★★★</p>
+                        <p>"Dịch vụ tuyệt vời, bác sĩ tận tình và đặt lịch rất dễ."</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body text-center p-4">
+                        <i class="fas fa-user-circle fa-4x text-success mb-3"></i>
+                        <h5>Trần Văn B</h5>
+                        <p class="rating">★★★★☆</p>
+                        <p>"Web tiện lợi, giúp tôi tiết kiệm nhiều thời gian khi khám."</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body text-center p-4">
+                        <i class="fas fa-user-circle fa-4x text-info mb-3"></i>
+                        <h5>Lê Thị C</h5>
+                        <p class="rating">★★★★★</p>
+                        <p>"Bác sĩ có chuyên môn cao, tư vấn rõ ràng và thân thiện."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="booking-section py-5" id="booking-section">
+    <div class="container">
+        <div class="booking-card">
+            <div class="text-center mb-4">
+                <span class="section-kicker">Đặt lịch</span>
+                <h2 class="text-primary fw-bold mb-2">Đặt lịch khám trực tuyến</h2>
+                <p class="text-muted mb-0">Đăng nhập tài khoản bệnh nhân để gửi lịch và theo dõi trạng thái.</p>
+            </div>
+            <form id="bookingForm" class="row g-4">
+                <div class="col-md-6">
+                    <label for="fullName" class="form-label fw-medium">Họ và tên</label>
+                    <input type="text" class="form-control form-control-lg" id="fullName" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="birthDate" class="form-label fw-medium">Ngày sinh</label>
+                    <input type="date" class="form-control form-control-lg" id="birthDate" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="bookingGender" class="form-label fw-medium">Giới tính</label>
+                    <select class="form-select form-select-lg" id="bookingGender" required>
+                        <option value="" disabled selected>Chọn giới tính</option>
+                        <option>Nam</option>
+                        <option>Nữ</option>
+                        <option>Khác</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="address" class="form-label fw-medium">Địa chỉ</label>
+                    <input type="text" class="form-control form-control-lg" id="address">
+                </div>
+                <div class="col-md-6">
+                    <label for="bookingEmail" class="form-label fw-medium">Email</label>
+                    <input type="email" class="form-control form-control-lg" id="bookingEmail" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="phone" class="form-label fw-medium">Số điện thoại</label>
+                    <input type="tel" class="form-control form-control-lg" id="phone" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="doctorSelect" class="form-label fw-medium">Khoa khám / Bác sĩ</label>
+                    <select class="form-select form-select-lg" id="doctorSelect" required>
+                        <option value="">Đang tải bác sĩ...</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="examDate" class="form-label fw-medium">Ngày khám</label>
+                    <input type="date" class="form-control form-control-lg" id="examDate" required>
+                </div>
+                <div class="col-12">
+                    <label for="symptoms" class="form-label fw-medium">Triệu chứng</label>
+                    <textarea class="form-control" id="symptoms" rows="4" placeholder="Mô tả ngắn gọn triệu chứng hoặc lý do khám..." required></textarea>
+                </div>
+                <div class="col-12 text-center">
+                    <button type="submit" class="btn btn-primary btn-lg px-5 rounded-pill">Gửi lịch hẹn</button>
+                </div>
+            </form>
+            <div id="bookingMessage" class="alert mt-4 d-none"></div>
+        </div>
+    </div>
+</section>
+
+<button id="chatbotToggle" class="chatbot-button" aria-label="Mở trợ lý ảo">
+    <i class="fas fa-comment-dots"></i>
+</button>
+<div id="chatbot" class="chatbot-container">
+    <div class="chatbot-header">
+        <span>Trợ lý ảo</span>
+        <button id="chatbotClose" aria-label="Đóng">×</button>
+    </div>
+    <div class="chatbot-messages" id="chatbotMessages">
+        <div class="bot-message">Xin chào! Tôi có thể giúp bạn đặt lịch hoặc tìm bác sĩ phù hợp.</div>
+    </div>
+    <form id="chatbotForm" class="chatbot-form">
+        <input type="text" id="chatbotInput" placeholder="Nhập tin nhắn..." required>
+        <button type="submit">Gửi</button>
+    </form>
+</div>
+
+<footer class="bg-dark text-white py-4">
+    <div class="container text-center">
+        <p class="mb-2">© 2026 Y Tế Online. Mọi quyền được bảo lưu.</p>
+        <p class="mb-0">
+            <a href="#" class="text-white me-2"><i class="fab fa-facebook"></i></a>
+            <a href="#" class="text-white me-2"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="text-white"><i class="fab fa-instagram"></i></a>
+        </p>
+    </div>
+</footer>
+
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="loginModalLabel">Đăng nhập</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="loginForm">
+                    <div class="mb-3">
+                        <label for="loginEmail" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="loginEmail" required>
+                        <div id="loginEmailError" class="invalid-feedback">Email không hợp lệ</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="loginPassword" class="form-label">Mật khẩu</label>
+                        <input type="password" class="form-control" id="loginPassword" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Đăng nhập</button>
+                </form>
+                <div id="loginMessage" class="alert mt-3 d-none"></div>
+                <p class="mt-3 text-center">Chưa có tài khoản? <a href="#" data-bs-toggle="modal" data-bs-target="#registerModal" data-bs-dismiss="modal">Đăng ký ngay</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="registerModalLabel">Đăng ký bệnh nhân</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="registerForm">
+                    <div class="mb-3">
+                        <label for="registerName" class="form-label">Họ và tên</label>
+                        <input type="text" class="form-control" id="registerName" required>
+                        <div class="invalid-feedback" id="nameError">Tên không được chứa số hoặc ký tự đặc biệt!</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="registerEmail" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="registerEmail" required>
+                        <div class="invalid-feedback" id="emailError">Vui lòng nhập email hợp lệ!</div>
+                    </div>
+                    <div class="mb-3 position-relative">
+                        <label for="registerPassword" class="form-label">Mật khẩu</label>
+                        <input type="password" class="form-control pe-5" id="registerPassword" required>
+                        <span class="toggle-password" data-target="registerPassword">👁️</span>
+                    </div>
+
+                    <div class="mb-3 position-relative">
+                        <label for="registerConfirmPassword" class="form-label">Xác nhận mật khẩu</label>
+                        <input type="password" class="form-control pe-5" id="registerConfirmPassword" required>
+                        <span class="toggle-password" data-target="registerConfirmPassword">👁️</span>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Đăng ký</button>
+                </form>
+                <div id="registerMessage" class="alert mt-3 d-none"></div>
+                <p class="mt-3 text-center">Đã có tài khoản? <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-dismiss="modal">Đăng nhập ngay</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/js/scripts.js"></script>
+</body>
+</html>
+
