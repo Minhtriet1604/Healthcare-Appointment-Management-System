@@ -1,20 +1,19 @@
-**Healthcare Appointment Management System**
+**🌟Giới Thiệu Dự Án: Healthcare Appointment Management System**
 
-Một ứng dụng web mẫu để quản lý đặt lịch khám bệnh, phù hợp cho mục đích học tập và demo kiến trúc Spring Boot — phân tách rõ `controller`, `service`, `repository`, `entity`, `dto`.
-
+Healthcare Appointment Management System là hệ thống web hỗ trợ đặt lịch khám bệnh trực tuyến, cho phép bệnh nhân đặt lịch, bác sĩ xử lý lịch khám và admin quản lý toàn bộ hệ thống.
 **Tính năng chính**
 - Quản lý người dùng: đăng ký, đăng nhập (Admin/Doctor/Patient).
 - Patient: tìm bác sĩ, đặt lịch, xem lịch cá nhân.
 - Doctor: xem lịch được phân công, xác nhận/từ chối lịch.
 - Admin: quản lý bác sĩ, bệnh nhân, lịch khám và xem báo cáo tổng quan.
 
-**Công nghệ**
+**💻Công Nghệ Sử Dụng**
 - Backend: Java, Spring Boot, Spring Data JPA
 - Frontend: HTML/CSS/JavaScript (static pages)
 - Database: MySQL
 
 ---
-
+**🚀 Hướng Dẫn Khởi Chạy**
 **Bắt đầu nhanh (Quick start)**
 
 Yêu cầu cài đặt trước:
@@ -41,7 +40,7 @@ mvn spring-boot:run
 ```
 
 3) Mở trình duyệt:
-- Trang chính (patient): http://localhost:8080
+- Trang chính: http://localhost:8080
 - Admin dashboard: http://localhost:8080/admin.html
 - Doctor dashboard: http://localhost:8080/doctor.html
 
@@ -55,21 +54,6 @@ Khi chạy lần đầu, ứng dụng sẽ tạo một số tài khoản mẫu �
 - Patient: patient@clinic.com / 123456
 
 Lưu ý: mật khẩu mẫu chỉ để demo — không sử dụng trong môi trường thực tế.
-
----
-
-**Các endpoint chính (tóm tắt)**
-
-- Auth: `POST /register`, `POST /login`
-- Appointments: `POST /appointments`, `GET /appointments/patient/{id}`, `GET /appointments/doctor/{id}`
-- Doctor: `GET /doctors`, `GET /doctors/account/{userId}`
-- Admin: CRUD cho `patients`, `doctors`, `appointments` và `GET /admin/summary`
-
-Ví dụ nhanh (cURL):
-
-```bash
-curl -X POST http://localhost:8080/login -H "Content-Type: application/json" -d '{"email":"patient@clinic.com","password":"123456"}'
-```
 
 ---
 
@@ -99,26 +83,5 @@ mvn spring-boot:run
 ```
 
 ---
-
-**Bảo mật & cải tiến (gợi ý)**
-- Hiện tại mật khẩu lưu cho mục demo; để sản phẩm thực tế cần bổ sung:
-  - Spring Security + mã hóa mật khẩu (BCrypt)
-  - JWT hoặc session quản lý xác thực
-  - Kiểm thử bảo mật và filtering input
-
----
-
-**Đóng góp**
-Mọi đóng góp xin gửi PR hoặc issue. Vui lòng tuân theo chuẩn codebase và mô tả thay đổi rõ ràng.
-
-**Giấy phép**
-Ghi rõ giấy phép nếu cần (mặc định không có).
-
----
-
-Nếu bạn muốn, mình có thể:
-- Dịch README sang tiếng Anh.
-- Thêm hướng dẫn API chi tiết với ví dụ request/response.
-- Thêm mục Troubleshooting và FAQ.
 
 
